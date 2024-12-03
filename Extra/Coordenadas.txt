@@ -1,0 +1,3 @@
+Rotate x - -0.225
+Rotate y - 0.394
+Rotate z - -0.557

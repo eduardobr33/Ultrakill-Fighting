@@ -1,0 +1,16 @@
+-----> Animaciones <-----
+
+Default 		--> 1
+Entry			--> 2 - 220
+Idle			--> 221 - 260
+Walk Front		--> 
+Walk Backwards		--> 
+Dodge High Attack	--> 
+Dodge Low Attack	--> 
+Quick Attack (Short)	--> 
+Slow Attack (Long)	--> 
+Low Quick Attack (Short)--> 
+Low Slow Attack (Long)	-->
+Hit			--> 
+Die			-->
+Win			-->
