@@ -3,7 +3,7 @@
 Default 		--> 1
 Entry			--> 2 - 220
 Idle			--> 221 - 260
-Walk Front		--> 
+Walk Front		--> 261 - 281
 Walk Backwards		--> 
 Dodge High Attack	--> 
 Dodge Low Attack	--> 
