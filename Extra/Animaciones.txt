@@ -4,13 +4,13 @@ Default 		--> 1
 Entry			--> 2 - 220
 Idle			--> 221 - 260
 Walk Front		--> 262 - 293
-Walk Backwards		--> 
-Dodge High Attack	--> 
+Walk Backwards		--> 438 - 470
+Dodge High Attack	--> 343 - 368
 Dodge Low Attack	--> 
-Quick Attack (Short)	--> 
-Slow Attack (Long)	--> 
+Quick Attack (Short)	--> 295 - 318
+Slow Attack (Long)	--> 385 - 437
 Low Quick Attack (Short)--> 
 Low Slow Attack (Long)	-->
-Hit			--> 
+Hit			--> 369 - 384
 Die			-->
 Win			-->
