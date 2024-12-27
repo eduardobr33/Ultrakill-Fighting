@@ -6,11 +6,11 @@ Idle			--> 221 - 260
 Walk Front		--> 262 - 293
 Walk Backwards		--> 438 - 470
 Dodge High Attack	--> 343 - 368
-Dodge Low Attack	--> 
+Dodge Low Attack	--> 521 - 535
 Quick Attack (Short)	--> 295 - 318
 Slow Attack (Long)	--> 385 - 437
 Low Quick Attack (Short)--> 471 - 490
-Low Slow Attack (Long)	-->
+Low Slow Attack (Long)	--> 491 - 520
 Hit			--> 369 - 384
-Die			-->
-Win			-->
+Die			--> 591 - 650
+Win			--> 536 - 590
