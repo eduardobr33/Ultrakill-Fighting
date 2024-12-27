@@ -9,7 +9,7 @@ Dodge High Attack	--> 343 - 368
 Dodge Low Attack	--> 
 Quick Attack (Short)	--> 295 - 318
 Slow Attack (Long)	--> 385 - 437
-Low Quick Attack (Short)--> 
+Low Quick Attack (Short)--> 471 - 490
 Low Slow Attack (Long)	-->
 Hit			--> 369 - 384
 Die			-->
