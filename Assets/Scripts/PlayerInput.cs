@@ -18,8 +18,8 @@ public class PlayerInput : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
 
         // Determinar si el personaje está caminando hacia adelante o hacia atrás
-        animator.SetBool("IsWalkingForward", horizontal > 0);
-        animator.SetBool("IsWalkingBackward", horizontal < 0);
+        animator.SetBool("IsWalkingForward", horizontal > 0.5);
+        animator.SetBool("IsWalkingBackward", horizontal < -0.5);
 
         // Esquivas
         if (vertical > 0.5f)
