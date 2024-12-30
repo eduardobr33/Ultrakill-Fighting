@@ -2,29 +2,32 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public GameObject player1Prefab; // Prefab del jugador 1
-    public GameObject player2Prefab; // Prefab del jugador 2
-    public Transform spawn1; // Punto de spawn 1
-    public Transform spawn2; // Punto de spawn 2
+    public GameObject player1Prefab;        // Prefab del jugador
+    public GameObject player2Prefab;
+    public Transform spawn1;                // Punto de spawn
+    public Transform spawn2;
 
-    private GameObject player1; // Referencia al jugador 1
-    private GameObject player2; // Referencia al jugador 2
+    public HealthBar healthBarPlayer1;      // Barra de vida del jugador
+    public HealthBar healthBarPlayer2;
 
-    private int player1Joystick = 0; // Joystick asignado al jugador 1
-    private int player2Joystick = 0; // Joystick asignado al jugador 2
+    private GameObject player1;             // Referencia al jugador
+    private GameObject player2;
+
+    private int player1Joystick = 0;        // Joystick asignado al jugador
+    private int player2Joystick = 0;
 
     void Update()
     {
         // Detectar si hay un input del mando y asignar jugador 1
         if (player1 == null && DetectInputForPlayer(1))
         {
-            SpawnPlayer(1, spawn1, player1Prefab);
+            SpawnPlayer(1, spawn1, player1Prefab, healthBarPlayer1);
         }
 
         // Detectar si hay un input del mando y asignar jugador 2, solo si el jugador 1 ya está asignado
         if (player1 != null && player2 == null && DetectInputForPlayer(2))
         {
-            SpawnPlayer(2, spawn2, player2Prefab);
+            SpawnPlayer(2, spawn2, player2Prefab, healthBarPlayer2);
         }
 
         //// Si no se detecta un segundo mando, pero ya hay un jugador 1, asignar el segundo jugador al primer mando.
@@ -62,13 +65,16 @@ public class PlayerManager : MonoBehaviour
         return false;
     }
 
-    void SpawnPlayer(int playerNumber, Transform spawnPoint, GameObject prefab)
+    void SpawnPlayer(int playerNumber, Transform spawnPoint, GameObject prefab, HealthBar healthBar)
     {
         // Instanciar el prefab del jugador en el punto de spawn
         GameObject newPlayer = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
 
         // Asignar el joystick al jugador recién creado
         PlayerInput playerInput = newPlayer.GetComponent<PlayerInput>();
+
+        PlayerHealth playerHealth = newPlayer.GetComponent<PlayerHealth>();
+
         if (playerNumber == 1)
         {
             playerInput.SetJoystickNumber(player1Joystick);
@@ -78,6 +84,12 @@ public class PlayerManager : MonoBehaviour
         {
             playerInput.SetJoystickNumber(player2Joystick);
             player2 = newPlayer; // Guardar referencia al jugador 2
+        }
+
+        // Asignar la barra de vida al jugador
+        if (playerHealth != null)
+        {
+            playerHealth.healthBar = healthBar;
         }
 
         Debug.Log($"Player {playerNumber} spawneado con el mando {playerNumber}");

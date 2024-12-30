@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class Attack : MonoBehaviour
+public class PunchAttack : MonoBehaviour
 {
     public Collider attackCollider; // El collider que será usado como ataque
-    public int damage = 10; // El daño que inflige el ataque
+    private int damage = 3; // El daño que inflige el ataque
 
     private void Start()
     {
@@ -36,18 +36,22 @@ public class Attack : MonoBehaviour
     // Detectar cuando el collider de ataque entra en contacto con otro collider
     private void OnTriggerEnter(Collider other)
     {
-        // Verificar si el objeto que entra en contacto está en una capa diferente (por ejemplo, si el jugador 1 golpea al jugador 2)
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player2"))
+        // Buscar el objeto raíz del collider golpeado
+        GameObject hitObject = other.gameObject;
+
+        // Verificar si el objeto raíz no es el mismo que el objeto que ejecuta el ataque
+        if (hitObject == gameObject)
         {
-            // Aquí puedes aplicar el daño al jugador 2
-            // other.GetComponent<PlayerHealth>().TakeDamage(damage);
-            Debug.Log("Player 1 golpeó a Player 2 con " + damage + " de daño.");
+            return; // No aplicamos daño a nosotros mismos
         }
-        else if (other.gameObject.layer == LayerMask.NameToLayer("Player1"))
+
+        // Buscar el componente PlayerHealth en el padre o en el objeto raíz
+        PlayerHealth targetHealth = hitObject.GetComponentInParent<PlayerHealth>();
+        if (targetHealth != null)
         {
-            // Aquí puedes aplicar el daño al jugador 1
-            // other.GetComponent<PlayerHealth>().TakeDamage(damage);
-            Debug.Log("Player 2 golpeó a Player 1 con " + damage + " de daño.");
+            // Aplicar daño al jugador enemigo
+            targetHealth.TakeDamage(damage);
+            Debug.Log($"{gameObject.name} golpeó a {hitObject.name} con {damage} de daño.");
         }
     }
 }
