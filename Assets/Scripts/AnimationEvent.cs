@@ -72,7 +72,12 @@ public class AnimationEventSearcher : MonoBehaviour
     {
         if (shootAttack != null)
         {
-            shootAttack.ActivateAttack();
+            // Verificamos si hay munición antes de activar el ataque
+            if (shootAttack.GetCurrentAmmo() > 0)
+            {
+                shootAttack.ActivateAttack();
+            }
+            else Debug.Log("No hay munición suficiente para disparar.");
         }
         else Debug.LogError("El script ShootAttack no está asignado.");
     }

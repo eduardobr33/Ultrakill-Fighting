@@ -90,15 +90,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7185284875065a342b52672a489c13c6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.8323421
+      value: 0.34785557
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7185284875065a342b52672a489c13c6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.7499998
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7185284875065a342b52672a489c13c6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.062342
+      value: 5.413506
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7185284875065a342b52672a489c13c6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2295,6 +2295,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCollider: {fileID: 6044659242434128998}
+  ammoSliders:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &3819298097364972123 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4344343490602671180, guid: 7185284875065a342b52672a489c13c6, type: 3}

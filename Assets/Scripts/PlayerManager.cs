@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class PlayerManager : MonoBehaviour
 
     public HealthBar healthBarPlayer1;      // Barra de vida del jugador
     public HealthBar healthBarPlayer2;
+
+    public Slider[] ammoSlidersPlayer1;     // Sliders de munición del jugador 1
+    public Slider[] ammoSlidersPlayer2;     // Sliders de munición del jugador 2
 
     private GameObject player1;             // Referencia al jugador
     private GameObject player2;
@@ -21,13 +25,13 @@ public class PlayerManager : MonoBehaviour
         // Detectar si hay un input del mando y asignar jugador 1
         if (player1 == null && DetectInputForPlayer(1))
         {
-            SpawnPlayer(1, spawn1, player1Prefab, healthBarPlayer1);
+            SpawnPlayer(1, spawn1, player1Prefab, healthBarPlayer1, ammoSlidersPlayer1);
         }
 
         // Detectar si hay un input del mando y asignar jugador 2, solo si el jugador 1 ya está asignado
         if (player1 != null && player2 == null && DetectInputForPlayer(2))
         {
-            SpawnPlayer(2, spawn2, player2Prefab, healthBarPlayer2);
+            SpawnPlayer(2, spawn2, player2Prefab, healthBarPlayer2, ammoSlidersPlayer2);
         }
 
         //// Si no se detecta un segundo mando, pero ya hay un jugador 1, asignar el segundo jugador al primer mando.
@@ -65,7 +69,7 @@ public class PlayerManager : MonoBehaviour
         return false;
     }
 
-    void SpawnPlayer(int playerNumber, Transform spawnPoint, GameObject prefab, HealthBar healthBar)
+    void SpawnPlayer(int playerNumber, Transform spawnPoint, GameObject prefab, HealthBar healthBar, Slider[] ammoSliders)
     {
         // Instanciar el prefab del jugador en el punto de spawn
         GameObject newPlayer = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
@@ -73,7 +77,9 @@ public class PlayerManager : MonoBehaviour
         // Asignar el joystick al jugador recién creado
         PlayerInput playerInput = newPlayer.GetComponent<PlayerInput>();
 
+        // Asignar la UI
         PlayerHealth playerHealth = newPlayer.GetComponent<PlayerHealth>();
+        ShootAttack shootAttack = newPlayer.GetComponentInChildren<ShootAttack>();
 
         if (playerNumber == 1)
         {
@@ -90,6 +96,12 @@ public class PlayerManager : MonoBehaviour
         if (playerHealth != null)
         {
             playerHealth.healthBar = healthBar;
+        }
+
+        // Asignar las barras de munición al jugador
+        if (shootAttack != null && ammoSliders.Length > 0)
+        {
+            shootAttack.ammoSliders = ammoSliders;
         }
 
         Debug.Log($"Player {playerNumber} spawneado con el mando {playerNumber}");

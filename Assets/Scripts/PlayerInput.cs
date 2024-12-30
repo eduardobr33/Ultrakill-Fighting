@@ -6,6 +6,7 @@ public class PlayerInput : MonoBehaviour
 {
     private Animator animator;
     private int joystickNumber; // Número del mando asignado
+    private ShootAttack shootAttack; // Referencia al script ShootAttack
 
     // Asignar el número del joystick a este jugador
     public void SetJoystickNumber(int number)
@@ -16,6 +17,7 @@ public class PlayerInput : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
+        shootAttack = GetComponentInChildren<ShootAttack>();
     }
 
     private void Update()
@@ -51,7 +53,10 @@ public class PlayerInput : MonoBehaviour
         }
         else if (Input.GetButtonDown("Joystick1ButtonY"))
         {
-            animator.SetTrigger("SlowAttack");
+            if (shootAttack != null && shootAttack.GetCurrentAmmo() > 0)
+            {
+                animator.SetTrigger("SlowAttack");
+            }
         }
 
         if (Input.GetButtonDown("Joystick1ButtonA"))
@@ -91,7 +96,10 @@ public class PlayerInput : MonoBehaviour
         }
         else if (Input.GetButtonDown("Joystick2ButtonY"))
         {
-            animator.SetTrigger("SlowAttack");
+            if (shootAttack != null && shootAttack.GetCurrentAmmo() > 0)
+            {
+                animator.SetTrigger("SlowAttack");
+            }
         }
 
         if (Input.GetButtonDown("Joystick2ButtonA"))
