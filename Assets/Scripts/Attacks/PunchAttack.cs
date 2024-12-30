@@ -1,9 +1,13 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PunchAttack : MonoBehaviour
 {
     public Collider attackCollider; // El collider que será usado como ataque
     private int damage = 3; // El daño que inflige el ataque
+
+    private bool canDamage = true;   // Bandera para permitir el daño una sola vez
 
     private void Start()
     {
@@ -17,9 +21,10 @@ public class PunchAttack : MonoBehaviour
     // Esta función se llamará desde el Animation Event para activar el collider
     public void ActivateAttack()
     {
-        Debug.Log("ActivateAttack() fue llamado.");
+        //Debug.Log("ActivateAttack() fue llamado.");
         if (attackCollider != null)
         {
+            canDamage = true;
             attackCollider.enabled = true;
         }
     }
@@ -29,6 +34,7 @@ public class PunchAttack : MonoBehaviour
     {
         if (attackCollider != null)
         {
+            canDamage = false;
             attackCollider.enabled = false; // Desactivamos el collider de ataque al final de la animación
         }
     }
@@ -45,13 +51,18 @@ public class PunchAttack : MonoBehaviour
             return; // No aplicamos daño a nosotros mismos
         }
 
-        // Buscar el componente PlayerHealth en el padre o en el objeto raíz
-        PlayerHealth targetHealth = hitObject.GetComponentInParent<PlayerHealth>();
-        if (targetHealth != null)
+        // Verificar si el daño puede aplicarse
+        if (canDamage)
         {
-            // Aplicar daño al jugador enemigo
-            targetHealth.TakeDamage(damage);
-            Debug.Log($"{gameObject.name} golpeó a {hitObject.name} con {damage} de daño.");
+            // Buscar el componente PlayerHealth en el padre o en el objeto raíz
+            PlayerHealth targetHealth = hitObject.GetComponentInParent<PlayerHealth>();
+            if (targetHealth != null)
+            {
+                if (canDamage) canDamage = false;
+                // Aplicar daño al jugador enemigo
+                targetHealth.TakeDamage(damage);
+                Debug.Log($"{gameObject.name} golpeó a {hitObject.name} con {damage} de daño.");
+            }
         }
     }
 }
