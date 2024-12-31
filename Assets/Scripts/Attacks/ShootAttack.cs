@@ -15,6 +15,9 @@ public class ShootAttack : MonoBehaviour
     [Header("UI References")]
     public Slider[] ammoSliders; // Arreglo de Sliders para cada bala
 
+    private float ammoRegenRate = 5f; // Tiempo en segundos para regenerar una bala
+    private float smoothSpeed = 1f; // Velocidad de la transición
+
     private void Start()
     {
         // Asegurarnos de que el collider de ataque esté desactivado al inicio
@@ -36,6 +39,9 @@ public class ShootAttack : MonoBehaviour
         {
             Debug.LogError("La cantidad de Sliders no coincide con la munición máxima.");
         }
+
+        // Iniciar regeneración de munición
+        StartCoroutine(RegenerateAmmo());
     }
 
     // Esta función se llamará desde el Animation Event para activar el collider
@@ -109,6 +115,76 @@ public class ShootAttack : MonoBehaviour
                 // Aplicar daño al jugador enemigo
                 targetHealth.TakeDamage(damage);
                 Debug.Log($"{gameObject.name} golpeó a {hitObject.name} con {damage} de daño.");
+            }
+        }
+    }
+
+    // Corrutina para regenerar munición con el tiempo
+    private IEnumerator RegenerateAmmo()
+    {
+        // Aseguramos que la munición no se regenera si ya está llena
+        while (true)
+        {
+            // Esperar el tiempo definido para la regeneración
+            
+            //yield return new WaitForSeconds(ammoRegenRate);
+
+            // Solo regenerar munición si no está llena
+            if (currentAmmo < maxAmmo)
+            {
+                // Incrementamos la munición de manera suave
+                int targetAmmo = currentAmmo + 1; // Objetivo de munición para la regeneración
+                StartCoroutine(SmoothAmmoChange(targetAmmo));
+            }
+        }
+    }
+
+    private IEnumerator SmoothAmmoChange(int targetAmmo)
+    {
+        float currentValue = currentAmmo; // Valor inicial de la munición
+        float targetValue = targetAmmo;   // Valor final objetivo de la munición
+
+        // Interpolamos la munición de forma suave
+        while (!Mathf.Approximately(currentValue, targetValue))
+        {
+            currentValue = Mathf.MoveTowards(currentValue, targetValue, smoothSpeed * Time.deltaTime); // Movimiento suave hacia el valor objetivo
+
+            // Actualizamos la UI de las barras de munición
+            UpdateAmmoUI(currentValue);
+
+            yield return null; // Esperamos hasta el siguiente frame
+        }
+
+        // Aseguramos que la munición esté en el valor final exacto
+        currentAmmo = Mathf.RoundToInt(targetValue);
+        UpdateAmmoUI(currentAmmo); // Actualizamos la UI de la barra de munición
+    }
+
+    private void UpdateAmmoUI(float ammo)
+    {
+        // Aseguramos que la munición no se salga del rango
+        ammo = Mathf.Clamp(ammo, 0, maxAmmo);
+
+        // Calculamos cuántas partes de la barra de munición deben estar llenas
+        int filledParts = Mathf.FloorToInt(ammo); // Número de partes llenas (si la munición es 2, dos partes están llenas)
+
+        // Calculamos el porcentaje de la última parte que debe estar llena
+        float lastPartFill = ammo - filledParts;
+
+        // Actualizamos las barras de munición de acuerdo al valor actual
+        for (int i = 0; i < ammoSliders.Length; i++)
+        {
+            if (i < filledParts) // Las barras completas
+            {
+                ammoSliders[i].value = 1f; // Llenamos la barra completamente
+            }
+            else if (i == filledParts) // La última barra parcialmente llena
+            {
+                ammoSliders[i].value = lastPartFill; // Llenamos parcialmente la última barra
+            }
+            else // Las barras vacías
+            {
+                ammoSliders[i].value = 0f; // Las barras vacías siguen en 0
             }
         }
     }
