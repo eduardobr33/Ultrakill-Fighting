@@ -35,12 +35,29 @@ public class PlayerInput : MonoBehaviour
 
     void RestrictMovement()
     {
-        Vector3 currentPosition = transform.position;
+        // Solo aplicar restricciones si los jugadores están instanciados
+        if (otherPlayer != null)
+        {
+            Vector3 currentPosition = transform.position;
 
-        // Limitar el movimiento basado en los límites del mapa
-        currentPosition.z = Mathf.Clamp(currentPosition.z, zMin, zMax);
-        // Actualizar la posición del jugador
-        transform.position = currentPosition;
+            // Limitar el movimiento basado en los límites del mapa
+            currentPosition.z = Mathf.Clamp(currentPosition.z, zMin, zMax);
+
+            //// Evitar que el jugador 1 se mueva más allá del jugador 2 y viceversa
+            //if (joystickNumber == 1)
+            //{
+            //    // El jugador 1 no puede moverse más allá del jugador 2 (jugador 1 no puede pasar a la derecha del jugador 2)
+            //    currentPosition.z = Mathf.Min(currentPosition.z, otherPlayer.position.z);
+            //}
+            //else if (joystickNumber == 2)
+            //{
+            //    // El jugador 2 no puede moverse más allá del jugador 1 (jugador 2 no puede pasar a la izquierda del jugador 1)
+            //    currentPosition.z = Mathf.Max(currentPosition.z, otherPlayer.position.z);
+            //}
+
+            // Actualizar la posición del jugador
+            transform.position = currentPosition;
+        }
     }
 
     void InputPlayer1()
