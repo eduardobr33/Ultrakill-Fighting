@@ -8,7 +8,7 @@ public class PlayerInput : MonoBehaviour
     private int joystickNumber; // Número del mando asignado
     private ShootAttack shootAttack; // Referencia al script ShootAttack
 
-    public Transform otherPlayer;
+    [HideInInspector] public Transform otherPlayer;
 
     private float zMin = -7f;
     private float zMax = 7f;
@@ -35,26 +35,10 @@ public class PlayerInput : MonoBehaviour
 
     void RestrictMovement()
     {
-        if (otherPlayer == null) return;
-
         Vector3 currentPosition = transform.position;
-        Vector3 otherPlayerPosition = otherPlayer.position;
 
         // Limitar el movimiento basado en los límites del mapa
         currentPosition.z = Mathf.Clamp(currentPosition.z, zMin, zMax);
-
-        // Limitar el movimiento basado en la posición del otro jugador
-        if (joystickNumber == 1)
-        {
-            // Player 1 no puede ir más a la derecha que Player 2
-            currentPosition.z = Mathf.Min(currentPosition.z, otherPlayerPosition.z);
-        }
-        else if (joystickNumber == 2)
-        {
-            // Player 2 no puede ir más a la izquierda que Player 1
-            currentPosition.z = Mathf.Max(currentPosition.z, otherPlayerPosition.z);
-        }
-
         // Actualizar la posición del jugador
         transform.position = currentPosition;
     }

@@ -62,6 +62,13 @@ public class KickAttack : MonoBehaviour
                 // Aplicar daño al jugador enemigo
                 targetHealth.TakeDamage(damage);
                 Debug.Log($"{gameObject.name} golpeó a {hitObject.name} con {damage} de daño.");
+
+                // Reproducir la animación de "Hit" en el jugador enemigo
+                PlayerAnimator targetAnimator = hitObject.GetComponentInParent<PlayerAnimator>();
+                if (targetAnimator != null)
+                {
+                    targetAnimator.PlayHit();
+                }
             }
         }
     }

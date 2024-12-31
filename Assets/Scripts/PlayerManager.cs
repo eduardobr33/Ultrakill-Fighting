@@ -33,12 +33,6 @@ public class PlayerManager : MonoBehaviour
         {
             SpawnPlayer(2, spawn2, player2Prefab, healthBarPlayer2, ammoSlidersPlayer2);
         }
-
-        //// Si no se detecta un segundo mando, pero ya hay un jugador 1, asignar el segundo jugador al primer mando.
-        //if (player1 != null && player2 == null && DetectInputForPlayer(1))
-        //{
-        //    SpawnPlayer(2, spawn2, player2Prefab);
-        //}
     }
 
     bool DetectInputForPlayer(int playerNumber)
@@ -80,6 +74,7 @@ public class PlayerManager : MonoBehaviour
         // Asignar la UI
         PlayerHealth playerHealth = newPlayer.GetComponent<PlayerHealth>();
         ShootAttack shootAttack = newPlayer.GetComponentInChildren<ShootAttack>();
+        PlayerAnimator playerAnimator = newPlayer.GetComponent<PlayerAnimator>();
 
         if (playerNumber == 1)
         {
@@ -104,6 +99,31 @@ public class PlayerManager : MonoBehaviour
             shootAttack.ammoSliders = ammoSliders;
         }
 
+        // Configurar referencias cruzadas entre jugadores
+        SetupPlayerReferences();
+
         Debug.Log($"Player {playerNumber} spawneado con el mando {playerNumber}");
+    }
+
+    void SetupPlayerReferences()
+    {
+        if (player1 != null && player2 != null)
+        {
+            PlayerHealth player1Health = player1.GetComponent<PlayerHealth>();
+            PlayerHealth player2Health = player2.GetComponent<PlayerHealth>();
+
+            PlayerInput player1Input = player1.GetComponent<PlayerInput>();
+            PlayerInput player2Input = player2.GetComponent<PlayerInput>();
+
+            PlayerAnimator player1Animator = player1.GetComponent<PlayerAnimator>();
+            PlayerAnimator player2Animator = player2.GetComponent<PlayerAnimator>();
+
+            // Configurar referencias cruzadas
+            if (player1Health != null) player1Health.otherPlayerAnimator = player2Animator;
+            if (player2Health != null) player2Health.otherPlayerAnimator = player1Animator;
+
+            if (player1Input != null) player1Input.otherPlayer = player2.transform;
+            if (player2Input != null) player2Input.otherPlayer = player1.transform;
+        }
     }
 }

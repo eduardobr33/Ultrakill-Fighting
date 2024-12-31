@@ -6,7 +6,7 @@ using UnityEngine.UI; // Necesario para trabajar con UI
 public class ShootAttack : MonoBehaviour
 {
     public Collider attackCollider; // El collider que será usado como ataque
-    private int damage = 8; // El daño que inflige el ataque
+    private int damage = 50; // El daño que inflige el ataque
 
     private bool canDamage = true;   // Bandera para permitir el daño una sola vez
     private int currentAmmo = 3;     // Munición inicial
@@ -15,7 +15,7 @@ public class ShootAttack : MonoBehaviour
     [Header("UI References")]
     public Slider[] ammoSliders; // Arreglo de Sliders para cada bala
 
-    private float ammoRegenRate = 5f; // Tiempo en segundos para regenerar una bala
+    private float ammoRegenRate = 15f; // Tiempo en segundos para regenerar una bala
     private float smoothSpeed = 1f; // Velocidad de la transición
 
     private void Start()
@@ -56,7 +56,7 @@ public class ShootAttack : MonoBehaviour
 
             // Restar una bala y actualizar la UI
             currentAmmo--;
-            UpdateAmmoUI();
+            UpdateAmmoUI(currentAmmo);
             Debug.Log("Disparo realizado. Munición restante: " + currentAmmo);
         }
     }
@@ -74,22 +74,6 @@ public class ShootAttack : MonoBehaviour
     public int GetCurrentAmmo()
     {
         return currentAmmo;
-    }
-
-    // Método para actualizar la UI de los Sliders de munición
-    private void UpdateAmmoUI()
-    {
-        for (int i = 0; i < ammoSliders.Length; i++)
-        {
-            if (i < currentAmmo)
-            {
-                ammoSliders[i].value = 1; // Bala disponible
-            }
-            else
-            {
-                ammoSliders[i].value = 0; // Bala gastada
-            }
-        }
     }
 
     // Detectar cuando el collider de ataque entra en contacto con otro collider
@@ -115,6 +99,13 @@ public class ShootAttack : MonoBehaviour
                 // Aplicar daño al jugador enemigo
                 targetHealth.TakeDamage(damage);
                 Debug.Log($"{gameObject.name} golpeó a {hitObject.name} con {damage} de daño.");
+
+                // Reproducir la animación de "Hit" en el jugador enemigo
+                PlayerAnimator targetAnimator = hitObject.GetComponentInParent<PlayerAnimator>();
+                if (targetAnimator != null)
+                {
+                    targetAnimator.PlayHit();
+                }
             }
         }
     }
@@ -127,19 +118,19 @@ public class ShootAttack : MonoBehaviour
         {
             // Esperar el tiempo definido para la regeneración
             
-            //yield return new WaitForSeconds(ammoRegenRate);
+            yield return new WaitForSeconds(ammoRegenRate);
 
             // Solo regenerar munición si no está llena
             if (currentAmmo < maxAmmo)
             {
                 // Incrementamos la munición de manera suave
-                int targetAmmo = currentAmmo + 1; // Objetivo de munición para la regeneración
+                float targetAmmo = currentAmmo + 1; // Objetivo de munición para la regeneración
                 StartCoroutine(SmoothAmmoChange(targetAmmo));
             }
         }
     }
 
-    private IEnumerator SmoothAmmoChange(int targetAmmo)
+    private IEnumerator SmoothAmmoChange(float targetAmmo)
     {
         float currentValue = currentAmmo; // Valor inicial de la munición
         float targetValue = targetAmmo;   // Valor final objetivo de la munición

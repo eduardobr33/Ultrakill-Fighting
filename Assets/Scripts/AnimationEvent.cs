@@ -7,12 +7,17 @@ public class AnimationEventSearcher : MonoBehaviour
     private KickAttack kickAttack;
     private ShootAttack shootAttack;
 
+    private Camera mainCamera;
+    public Camera playerCamera;
+
     private void Start()
     {
         // Busca automáticamente el script Attack en los hijos
         punchAttack = GetComponentInChildren<PunchAttack>();
         kickAttack = GetComponentInChildren<KickAttack>();
         shootAttack = GetComponentInChildren<ShootAttack>();
+
+        mainCamera = Camera.main;
 
         if (punchAttack == null)
         {
@@ -89,5 +94,29 @@ public class AnimationEventSearcher : MonoBehaviour
             shootAttack.DeactivateAttack();
         }
         else Debug.LogError("El script ShootAttack no está asignado.");
+    }
+
+
+
+    public void ActivateCamera()
+    {
+        if (playerCamera != null && mainCamera != null)
+        {
+            mainCamera.gameObject.SetActive(false);
+            playerCamera.gameObject.SetActive(true);
+            Debug.Log("Cámara activada.");
+        }
+        else Debug.LogError("No se encontró una cámara para activar.");
+    }
+
+    public void DeactivateCamera()
+    {
+        if (playerCamera != null && mainCamera != null)
+        {
+            playerCamera.gameObject.SetActive(false);
+            mainCamera.gameObject.SetActive(true);
+            Debug.Log("Cámara desactivada.");
+        }
+        else Debug.LogError("No se encontró una cámara para desactivar.");
     }
 }
