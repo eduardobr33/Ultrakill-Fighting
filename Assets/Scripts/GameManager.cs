@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     private bool gameStarted = false;    // Estado del juego
 
     private int roundNumber = 1;         // Número de ronda actual
-    private int maxRounds = 3;           // Número máximo de rondas
+    private int maxRounds = 10;           // Número máximo de rondas
     public float roundTransitionDelay = 3.0f; // Tiempo de espera entre rondas
 
     private void Start()

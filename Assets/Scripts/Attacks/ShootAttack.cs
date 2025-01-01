@@ -6,7 +6,7 @@ using UnityEngine.UI; // Necesario para trabajar con UI
 public class ShootAttack : MonoBehaviour
 {
     public Collider attackCollider; // El collider que será usado como ataque
-    private int damage = 50; // El daño que inflige el ataque
+    private int damage = 12; // El daño que inflige el ataque
 
     private bool canDamage = true;   // Bandera para permitir el daño una sola vez
     private int currentAmmo = 3;     // Munición inicial
