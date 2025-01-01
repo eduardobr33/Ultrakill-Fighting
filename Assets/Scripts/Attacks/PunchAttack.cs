@@ -9,8 +9,20 @@ public class PunchAttack : MonoBehaviour
 
     private bool canDamage = true;   // Bandera para permitir el daño una sola vez
 
+    private PlayerAudio playerAudio;
+
     private void Start()
     {
+        // Buscar PlayerAudio dinámicamente en el padre si no está asignado
+        if (playerAudio == null)
+        {
+            playerAudio = GetComponentInParent<PlayerAudio>();
+            if (playerAudio == null)
+            {
+                Debug.LogError("PlayerAudio no encontrado en el padre. Asegúrate de que exista un componente PlayerAudio en la jerarquía.");
+            }
+        }
+
         // Asegurarnos de que el collider de ataque esté desactivado al inicio
         if (attackCollider != null)
         {
@@ -27,6 +39,8 @@ public class PunchAttack : MonoBehaviour
             canDamage = true;
             attackCollider.enabled = true;
         }
+
+        playerAudio.PlayPunch();
     }
 
     // Esta función se llamará desde el Animation Event para desactivar el collider

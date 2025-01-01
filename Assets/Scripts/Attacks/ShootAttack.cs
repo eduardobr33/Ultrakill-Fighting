@@ -6,7 +6,7 @@ using UnityEngine.UI; // Necesario para trabajar con UI
 public class ShootAttack : MonoBehaviour
 {
     public Collider attackCollider; // El collider que será usado como ataque
-    private int damage = 50; // El daño que inflige el ataque
+    private int damage = 12; // El daño que inflige el ataque
 
     private bool canDamage = true;   // Bandera para permitir el daño una sola vez
     private int currentAmmo = 3;     // Munición inicial
@@ -18,8 +18,20 @@ public class ShootAttack : MonoBehaviour
     private float ammoRegenRate = 15f; // Tiempo en segundos para regenerar una bala
     private float smoothSpeed = 1f; // Velocidad de la transición
 
+    private PlayerAudio playerAudio;
+
     private void Start()
     {
+        // Buscar PlayerAudio dinámicamente en el padre si no está asignado
+        if (playerAudio == null)
+        {
+            playerAudio = GetComponentInParent<PlayerAudio>();
+            if (playerAudio == null)
+            {
+                Debug.LogError("PlayerAudio no encontrado en el padre. Asegúrate de que exista un componente PlayerAudio en la jerarquía.");
+            }
+        }
+
         // Asegurarnos de que el collider de ataque esté desactivado al inicio
         if (attackCollider != null)
         {
@@ -58,6 +70,8 @@ public class ShootAttack : MonoBehaviour
             currentAmmo--;
             UpdateAmmoUI(currentAmmo);
             Debug.Log("Disparo realizado. Munición restante: " + currentAmmo);
+
+            playerAudio.PlayShoot();
         }
     }
 

@@ -90,15 +90,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7185284875065a342b52672a489c13c6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.07592
+      value: 0.6548414
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7185284875065a342b52672a489c13c6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.7500005
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7185284875065a342b52672a489c13c6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.953785
+      value: 12.38956
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7185284875065a342b52672a489c13c6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1970,6 +1970,9 @@ PrefabInstance:
       addedObject: {fileID: 196187484026452437}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7185284875065a342b52672a489c13c6, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 6498923498813032562}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7185284875065a342b52672a489c13c6, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 3907925889067866889}
     - targetCorrespondingSourceObject: {fileID: 4229730364134171613, guid: 7185284875065a342b52672a489c13c6, type: 3}
       insertIndex: -1
@@ -2170,6 +2173,22 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   otherPlayerAnimator: {fileID: 0}
   winAnimationDelay: 2
+--- !u!114 &6498923498813032562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399557924003353414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a9d1e2093fde9f4c8881e4726e917a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  punchSound: {fileID: 8300000, guid: c3a46da4362c7ce4e8ecb46bf34249df, type: 3}
+  shootSound: {fileID: 8300000, guid: e17639f36b53e864c971d0d8e1dd2362, type: 3}
+  kickSound: {fileID: 8300000, guid: fc5b27070f0f2554d97d5538ca6f9979, type: 3}
+  dodgeSound: {fileID: 8300000, guid: 3214d485283bd124e9b442044c8f29b9, type: 3}
 --- !u!54 &3907925889067866889
 Rigidbody:
   m_ObjectHideFlags: 0
