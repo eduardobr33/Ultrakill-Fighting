@@ -8,10 +8,11 @@ public class PlayerHealth : MonoBehaviour
     private int currentHealth;
 
     public HealthBar healthBar; // Referencia al script de la barra de vida
+    public GameManager gameManager;
     private PlayerAnimator playerAnimator;
     [HideInInspector] public PlayerAnimator otherPlayerAnimator;
 
-    public float winAnimationDelay = 2.0f; // Tiempo de espera antes de reproducir la animación de victoria
+    private float winAnimationDelay = 2.0f; // Tiempo de espera antes de reproducir la animación de victoria
 
 
     private void Start()
@@ -25,6 +26,7 @@ public class PlayerHealth : MonoBehaviour
             healthBar.SetMaxHealth(maxHealth);
         }
 
+        gameManager = FindObjectOfType<GameManager>();
         playerAnimator = GetComponent<PlayerAnimator>();
     }
 
@@ -41,11 +43,24 @@ public class PlayerHealth : MonoBehaviour
         // Aquí puedes manejar la muerte del jugador (destruir, respawn, etc.)
         if (playerAnimator != null) playerAnimator.PlayDie();
         if (otherPlayerAnimator != null) StartCoroutine(PlayWinAnimationAfterDelay());
+
+        // Notificar al GameManager
+        if (gameManager != null)
+        {
+            string winner = gameObject.name == "Player1" ? "Player 2" : "Player 1";
+            gameManager.EndRound(winner);
+        }
     }
 
     private IEnumerator PlayWinAnimationAfterDelay()
     {
         yield return new WaitForSeconds(winAnimationDelay);
         otherPlayerAnimator?.PlayWin();
+    }
+
+    public void ResetHealth()
+    {
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 }

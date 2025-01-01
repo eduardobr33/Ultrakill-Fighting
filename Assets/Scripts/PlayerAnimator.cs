@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerAnimator : MonoBehaviour
 {
     private Animator animator;
+    public AnimationEventSearcher animationEvent;
 
     private void Start()
     {
@@ -16,6 +17,7 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetBool("IsWalkingForward", false);
         animator.SetBool("IsWalkingBackward", false);
+        animator.Play("Idle");
     }
 
     public void PlayHit()
@@ -26,11 +28,19 @@ public class PlayerAnimator : MonoBehaviour
     public void PlayWin()
     {
         animator.SetTrigger("Win");
+        StartCoroutine(ResetCamera());
     }
 
     public void PlayDie()
     {
         animator.SetTrigger("Die");
+    }
+
+    private IEnumerator ResetCamera()
+    {
+        yield return new WaitForSeconds(5.0f);
+
+        animationEvent.DeactivateCamera();
     }
 }
 

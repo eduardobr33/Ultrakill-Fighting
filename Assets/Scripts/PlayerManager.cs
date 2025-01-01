@@ -14,8 +14,8 @@ public class PlayerManager : MonoBehaviour
     public Slider[] ammoSlidersPlayer1;     // Sliders de munición del jugador 1
     public Slider[] ammoSlidersPlayer2;     // Sliders de munición del jugador 2
 
-    private GameObject player1;             // Referencia al jugador
-    private GameObject player2;
+    public GameObject player1;             // Referencia al jugador
+    public GameObject player2;
 
     private int player1Joystick = 0;        // Joystick asignado al jugador
     private int player2Joystick = 0;
@@ -29,7 +29,7 @@ public class PlayerManager : MonoBehaviour
         }
 
         // Detectar si hay un input del mando y asignar jugador 2, solo si el jugador 1 ya está asignado
-        if (player1 != null && player2 == null && DetectInputForPlayer(2))
+        else if (player1 != null && player2 == null && DetectInputForPlayer(2))
         {
             SpawnPlayer(2, spawn2, player2Prefab, healthBarPlayer2, ammoSlidersPlayer2);
         }
@@ -103,6 +103,33 @@ public class PlayerManager : MonoBehaviour
         SetupPlayerReferences();
 
         Debug.Log($"Player {playerNumber} spawneado con el mando {playerNumber}");
+    }
+
+    public void ResetPlayers()
+    {
+        if (player1 != null)
+        {
+            PlayerHealth health1 = player1.GetComponent<PlayerHealth>();
+            if (health1 != null) health1.ResetHealth();
+
+            PlayerAnimator animator1 = player1.GetComponent<PlayerAnimator>();
+            if (animator1 != null) animator1.SetIdle();
+
+            player1.transform.position = spawn1.position;
+            player1.transform.rotation = spawn1.rotation;
+        }
+
+        if (player2 != null)
+        {
+            PlayerHealth health2 = player2.GetComponent<PlayerHealth>();
+            if (health2 != null) health2.ResetHealth();
+
+            PlayerAnimator animator2 = player2.GetComponent<PlayerAnimator>();
+            if (animator2 != null) animator2.SetIdle();
+
+            player2.transform.position = spawn2.position;
+            player2.transform.rotation = spawn2.rotation;
+        }
     }
 
     void SetupPlayerReferences()
