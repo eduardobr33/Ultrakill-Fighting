@@ -37,29 +37,26 @@ public class PlayerManager : MonoBehaviour
 
     bool DetectInputForPlayer(int playerNumber)
     {
-        // Detectar si hay entrada de joystick o teclado
-        for (int joystick = 1; joystick <= 2; joystick++) // Soporte hasta 2 mandos
+        string[] joystickNames = Input.GetJoystickNames();
+
+        for (int joystick = 1; joystick <= joystickNames.Length; joystick++)
         {
-            // Evitar reasignar un mando ya asignado
             if (joystick == player1Joystick || joystick == player2Joystick)
                 continue;
 
-            // Detectar si se ha presionado un botón en el mando
-            if (Input.GetButton($"Joystick{joystick}ButtonA") || Input.GetButton($"Joystick{joystick}ButtonB") 
-                || Input.GetButton($"Joystick{joystick}ButtonX") || Input.GetButton($"Joystick{joystick}ButtonY"))
+            if (Input.GetAxis($"Joystick{joystick}ButtonX") != 0 || Input.anyKey)
             {
-                if (playerNumber == 1 && player1 == null) // Solo asignar el mando al primer jugador si no hay uno ya asignado
+                if (playerNumber == 1 && player1 == null)
                 {
                     player1Joystick = joystick;
                 }
-                else if (playerNumber == 2 && player2 == null) // Solo asignar el mando al segundo jugador si no hay uno ya asignado
+                else if (playerNumber == 2 && player2 == null)
                 {
                     player2Joystick = joystick;
                 }
                 return true;
             }
         }
-
         return false;
     }
 
