@@ -13,6 +13,8 @@ public class PlayerInput : MonoBehaviour
     private float zMin = -7f;
     private float zMax = 7f;
 
+    private bool isOnAnimation = false;
+
     // Asignar el número del joystick a este jugador
     public void SetJoystickNumber(int number)
     {
@@ -71,35 +73,50 @@ public class PlayerInput : MonoBehaviour
         animator.SetBool("IsWalkingBackward", horizontal < -0.5);
 
         // Esquivas
-        if (vertical > 0.5f)
+        if (!isOnAnimation) // Solo permitir esquivar si no está ya esquivando
         {
-            animator.SetTrigger("DodgeHigh");
-        }
-        else if (vertical < -0.5f)
-        {
-            animator.SetTrigger("DodgeLow");
-        }
-
-        // Ataques
-        if (Input.GetButtonDown("Joystick1ButtonX"))
-        {
-            animator.SetTrigger("QuickAttack");
-        }
-        else if (Input.GetButtonDown("Joystick1ButtonY"))
-        {
-            if (shootAttack != null && shootAttack.GetCurrentAmmo() > 0)
+            if (vertical > 0.5f)
             {
-                animator.SetTrigger("SlowAttack");
+                animator.SetTrigger("DodgeHigh");
+                StartCoroutine(ResetAnimationState(1.04f));
+            }
+            else if (vertical < -0.5f)
+            {
+                animator.SetTrigger("DodgeLow");
+                StartCoroutine(ResetAnimationState(0.58f));
             }
         }
 
-        if (Input.GetButtonDown("Joystick1ButtonA"))
+        // Ataques
+        if (!isOnAnimation)
         {
-            animator.SetTrigger("LowQuickAttack");
+            if (Input.GetButtonDown("Joystick1ButtonX"))
+            {
+                animator.SetTrigger("QuickAttack");
+                StartCoroutine(ResetAnimationState(0.95f));
+            }
+            else if (Input.GetButtonDown("Joystick1ButtonY"))
+            {
+                if (shootAttack != null && shootAttack.GetCurrentAmmo() > 0)
+                {
+                    animator.SetTrigger("SlowAttack");
+                    StartCoroutine(ResetAnimationState(2.16f));
+                }
+            }
         }
-        else if (Input.GetButtonDown("Joystick1ButtonB"))
+
+        if (!isOnAnimation)
         {
-            animator.SetTrigger("LowSlowAttack");
+            if (Input.GetButtonDown("Joystick1ButtonA"))
+            {
+                animator.SetTrigger("LowQuickAttack");
+                StartCoroutine(ResetAnimationState(0.79f));
+            }
+            else if (Input.GetButtonDown("Joystick1ButtonB"))
+            {
+                animator.SetTrigger("LowSlowAttack");
+                StartCoroutine(ResetAnimationState(1.2f));
+            }
         }
     }
 
@@ -114,35 +131,59 @@ public class PlayerInput : MonoBehaviour
         animator.SetBool("IsWalkingBackward", horizontal < -0.5);
 
         // Esquivas
-        if (vertical > 0.5f)
+        if (!isOnAnimation) // Solo permitir esquivar si no está ya esquivando
         {
-            animator.SetTrigger("DodgeHigh");
-        }
-        else if (vertical < -0.5f)
-        {
-            animator.SetTrigger("DodgeLow");
-        }
-
-        // Ataques
-        if (Input.GetButtonDown("Joystick2ButtonX"))
-        {
-            animator.SetTrigger("QuickAttack");
-        }
-        else if (Input.GetButtonDown("Joystick2ButtonY"))
-        {
-            if (shootAttack != null && shootAttack.GetCurrentAmmo() > 0)
+            if (vertical > 0.5f)
             {
-                animator.SetTrigger("SlowAttack");
+                animator.SetTrigger("DodgeHigh");
+                StartCoroutine(ResetAnimationState(1.04f));
+            }
+            else if (vertical < -0.5f)
+            {
+                animator.SetTrigger("DodgeLow");
+                StartCoroutine(ResetAnimationState(0.58f));
             }
         }
 
-        if (Input.GetButtonDown("Joystick2ButtonA"))
+        // Ataques
+        if (!isOnAnimation)
         {
-            animator.SetTrigger("LowQuickAttack");
+            if (Input.GetButtonDown("Joystick1ButtonX"))
+            {
+                animator.SetTrigger("QuickAttack");
+                StartCoroutine(ResetAnimationState(0.95f));
+            }
+            else if (Input.GetButtonDown("Joystick1ButtonY"))
+            {
+                if (shootAttack != null && shootAttack.GetCurrentAmmo() > 0)
+                {
+                    animator.SetTrigger("SlowAttack");
+                    StartCoroutine(ResetAnimationState(2.16f));
+                }
+            }
         }
-        else if (Input.GetButtonDown("Joystick2ButtonB"))
+
+        if (!isOnAnimation)
         {
-            animator.SetTrigger("LowSlowAttack");
+            if (Input.GetButtonDown("Joystick1ButtonA"))
+            {
+                animator.SetTrigger("LowQuickAttack");
+                StartCoroutine(ResetAnimationState(0.79f));
+            }
+            else if (Input.GetButtonDown("Joystick1ButtonB"))
+            {
+                animator.SetTrigger("LowSlowAttack");
+                StartCoroutine(ResetAnimationState(1.2f));
+            }
         }
+    }
+
+    private IEnumerator ResetAnimationState(float seconds)
+    {
+        isOnAnimation = true;
+
+        yield return new WaitForSeconds(seconds);
+
+        isOnAnimation = false;
     }
 }

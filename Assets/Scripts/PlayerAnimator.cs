@@ -10,14 +10,14 @@ public class PlayerAnimator : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
-        //animator.Play("Entry"); // Reproduce Entry al inicio
+        animator.Play("Entry"); // Reproduce Entry al inicio
     }
 
     public void SetIdle()
     {
         animator.SetBool("IsWalkingForward", false);
         animator.SetBool("IsWalkingBackward", false);
-        animator.Play("Idle");
+        //animator.Play("Idle");
     }
 
     public void PlayHit()

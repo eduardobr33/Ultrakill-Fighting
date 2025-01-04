@@ -136,7 +136,7 @@ public class AnimationEventSearcher : MonoBehaviour
         {
             dodgeHigh.ActivateDodge();
         }
-        else Debug.LogError("El script DodgeHigh no está asignado.");
+        else Debug.LogError("El script DodgeLow no está asignado.");
     }
 
     public void DeactivateDodgeLow()
@@ -145,7 +145,7 @@ public class AnimationEventSearcher : MonoBehaviour
         {
             dodgeHigh.DeactivateDodge();
         }
-        else Debug.LogError("El script DodgeHigh no está asignado.");
+        else Debug.LogError("El script DodgeLow no está asignado.");
     }
 
 
