@@ -82,7 +82,6 @@ public class KickAttack : MonoBehaviour
                 if (targetAnimator != null)
                 {
                     targetAnimator.PlayHit();
-                    playerAudio.PlayHit();
                 }
             }
         }

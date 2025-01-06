@@ -82,7 +82,6 @@ public class PunchAttack : MonoBehaviour
                 if (targetAnimator != null)
                 {
                     targetAnimator.PlayHit();
-                    playerAudio.PlayHit();
                 }
             }
         }
