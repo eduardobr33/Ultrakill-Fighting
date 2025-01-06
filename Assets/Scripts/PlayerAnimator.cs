@@ -17,7 +17,7 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetBool("IsWalkingForward", false);
         animator.SetBool("IsWalkingBackward", false);
-        //animator.Play("Idle");
+        animator.Play("Idle");
     }
 
     public void PlayHit()
