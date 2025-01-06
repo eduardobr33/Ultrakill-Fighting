@@ -119,6 +119,7 @@ public class ShootAttack : MonoBehaviour
                 if (targetAnimator != null)
                 {
                     targetAnimator.PlayHit();
+                    playerAudio.PlayHit();
                 }
             }
         }
@@ -137,6 +138,7 @@ public class ShootAttack : MonoBehaviour
             // Solo regenerar munición si no está llena
             if (currentAmmo < maxAmmo)
             {
+                playerAudio.PlayReload();
                 // Incrementamos la munición de manera suave
                 float targetAmmo = currentAmmo + 1; // Objetivo de munición para la regeneración
                 StartCoroutine(SmoothAmmoChange(targetAmmo));

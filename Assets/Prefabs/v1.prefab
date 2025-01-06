@@ -90,15 +90,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7185284875065a342b52672a489c13c6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.589817
+      value: 2.1918664
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7185284875065a342b52672a489c13c6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.75
+      value: 1.750001
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7185284875065a342b52672a489c13c6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.137613
+      value: 1.7394876
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7185284875065a342b52672a489c13c6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2232,10 +2232,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9d1e2093fde9f4c8881e4726e917a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  punchSound: {fileID: 8300000, guid: c3a46da4362c7ce4e8ecb46bf34249df, type: 3}
+  punchSound: {fileID: 8300000, guid: ba3175948feae324fb3d02014281e49a, type: 3}
   shootSound: {fileID: 8300000, guid: e17639f36b53e864c971d0d8e1dd2362, type: 3}
   kickSound: {fileID: 8300000, guid: fc5b27070f0f2554d97d5538ca6f9979, type: 3}
   dodgeSound: {fileID: 8300000, guid: 3214d485283bd124e9b442044c8f29b9, type: 3}
+  reloadSound: {fileID: 8300000, guid: c639dce3d82ed3c47b7f1dfea5f4023b, type: 3}
+  hitSound: {fileID: 8300000, guid: c3a46da4362c7ce4e8ecb46bf34249df, type: 3}
 --- !u!54 &3907925889067866889
 Rigidbody:
   m_ObjectHideFlags: 0

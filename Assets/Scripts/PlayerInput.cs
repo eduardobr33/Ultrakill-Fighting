@@ -29,9 +29,7 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        if (joystickNumber == 1) InputPlayer1();
-        else InputPlayer2();
-
+        HandleInput();
         RestrictMovement();
     }
 
@@ -62,76 +60,25 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-    void InputPlayer1()
+    void HandleInput()
     {
-        // Obtener valores de los sticks analógicos
-        float horizontal = Input.GetAxis("Joystick1Horizontal");
-        float vertical = Input.GetAxis("Joystick1Vertical");
+        // Obtener valores dinamicamente segun el joystick asignado
+        string horizontalAxis = $"Joystick{joystickNumber}Horizontal";
+        string verticalAxis = $"Joystick{joystickNumber}Vertical";
+        string buttonX = $"Joystick{joystickNumber}ButtonX";
+        string buttonY = $"Joystick{joystickNumber}ButtonY";
+        string buttonA = $"Joystick{joystickNumber}ButtonA";
+        string buttonB = $"Joystick{joystickNumber}ButtonB";
 
-        // Determinar si el personaje está caminando hacia adelante o hacia atrás
-        animator.SetBool("IsWalkingForward", horizontal > 0.5);
+        float horizontal = Input.GetAxis(horizontalAxis);
+        float vertical = Input.GetAxis(verticalAxis);
+
+        // Determinar si el personaje esta caminando hacia adelante o hacia atras
+        animator.SetBool("IsWalkingForward", horizontal > 0.5f);
         animator.SetBool("IsWalkingBackward", horizontal < -0.5);
 
         // Esquivas
-        if (!isOnAnimation) // Solo permitir esquivar si no está ya esquivando
-        {
-            if (vertical > 0.5f)
-            {
-                animator.SetTrigger("DodgeHigh");
-                StartCoroutine(ResetAnimationState(1.04f));
-            }
-            else if (vertical < -0.5f)
-            {
-                animator.SetTrigger("DodgeLow");
-                StartCoroutine(ResetAnimationState(0.58f));
-            }
-        }
-
-        // Ataques
         if (!isOnAnimation)
-        {
-            if (Input.GetButtonDown("Joystick1ButtonX"))
-            {
-                animator.SetTrigger("QuickAttack");
-                StartCoroutine(ResetAnimationState(0.95f));
-            }
-            else if (Input.GetButtonDown("Joystick1ButtonY"))
-            {
-                if (shootAttack != null && shootAttack.GetCurrentAmmo() > 0)
-                {
-                    animator.SetTrigger("SlowAttack");
-                    StartCoroutine(ResetAnimationState(2.16f));
-                }
-            }
-        }
-
-        if (!isOnAnimation)
-        {
-            if (Input.GetButtonDown("Joystick1ButtonA"))
-            {
-                animator.SetTrigger("LowQuickAttack");
-                StartCoroutine(ResetAnimationState(0.79f));
-            }
-            else if (Input.GetButtonDown("Joystick1ButtonB"))
-            {
-                animator.SetTrigger("LowSlowAttack");
-                StartCoroutine(ResetAnimationState(1.2f));
-            }
-        }
-    }
-
-    void InputPlayer2()
-    {
-        // Obtener valores de los sticks analógicos
-        float horizontal = Input.GetAxis("Joystick2Horizontal");
-        float vertical = Input.GetAxis("Joystick2Vertical");
-
-        // Determinar si el personaje está caminando hacia adelante o hacia atrás
-        animator.SetBool("IsWalkingForward", horizontal > 0.5);
-        animator.SetBool("IsWalkingBackward", horizontal < -0.5);
-
-        // Esquivas
-        if (!isOnAnimation) // Solo permitir esquivar si no está ya esquivando
         {
             if (vertical > 0.5f)
             {

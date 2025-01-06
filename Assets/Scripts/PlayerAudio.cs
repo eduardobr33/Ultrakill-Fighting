@@ -8,6 +8,8 @@ public class PlayerAudio : MonoBehaviour
     public AudioClip shootSound;
     public AudioClip kickSound;
     public AudioClip dodgeSound;
+    public AudioClip reloadSound;
+    public AudioClip hitSound;
 
     public void PlayPunch()
     {
@@ -27,5 +29,15 @@ public class PlayerAudio : MonoBehaviour
     public void PlayDodge()
     {
         SoundManager.Instance.PlayEffect(dodgeSound);
+    }
+
+    public void PlayReload()
+    {
+        SoundManager.Instance.PlayEffect(reloadSound);
+    }
+
+    public void PlayHit()
+    {
+        SoundManager.Instance.PlayEffect(hitSound);
     }
 }
