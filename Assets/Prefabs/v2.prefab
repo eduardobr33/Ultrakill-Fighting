@@ -920,7 +920,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 623611720069569361}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6b9fc790b3d4ca4b83f9d4126529b03, type: 3}
   m_Name: 
@@ -971,6 +971,8 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: e17639f36b53e864c971d0d8e1dd2362, type: 3}
   kickSound: {fileID: 8300000, guid: fc5b27070f0f2554d97d5538ca6f9979, type: 3}
   dodgeSound: {fileID: 8300000, guid: 3214d485283bd124e9b442044c8f29b9, type: 3}
+  reloadSound: {fileID: 0}
+  hitSound: {fileID: 0}
 --- !u!54 &8088745394244168341
 Rigidbody:
   m_ObjectHideFlags: 0
