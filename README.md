@@ -43,16 +43,9 @@ _To build the game:_
       - Language: C#
       - Sprite/Texture Editing: Photoshop
       - Audio Tools: Audacity
-
-#### Example:  
-
-This was a 3 week long project built during my third module at Turing School of Software and Design. Project goals included using technologies learned up until this point and familiarizing myself with documentation for new features.  
-
-Originally I wanted to build an application that allowed users to pull data from the Twitter API based on what they were interested in, such as 'most tagged users'. I started this process by using the `create-react-app` boilerplate, then adding `react-router-4.0` and `redux`.  
-
-One of the main challenges I ran into was Authentication. This lead me to spend a few days on a research spike into OAuth, Auth0, and two-factor authentication using Firebase or other third parties. Due to project time constraints, I had to table authentication and focus more on data visualization from parts of the API that weren't restricted to authenticated users.
-
-At the end of the day, the technologies implemented in this project are React, React-Router 4.0, Redux, LoDash, D3, and a significant amount of VanillaJS, JSX, and CSS. I chose to use the `create-react-app` boilerplate to minimize initial setup and invest more time in diving into weird technological rabbit holes. In the next iteration I plan on handrolling a `webpack.config.js` file to more fully understand the build process.
+ 
+This project was a university assignment for an animation class in a degree in game development course. The task was to create a simple two-player martial arts fighting game in Unity, featuring hand-animated characters with keyframed movements, no motion capture or retargeting allowed. Each student was responsible for animating their own character and implementing gameplay features like local versus play, sound effects, and gamepad support.
+After completing the assignment, I decided to continue developing it independently, turning it into a full parsonal project. I expanded on the original concept by incorporating characters and aesthetics from _Ultrakill_, improving mechanics, visuals, and planning for more features beyond the scope of the original university brief.
 
 ## Disclaimer
 
